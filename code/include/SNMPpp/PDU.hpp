@@ -14,7 +14,7 @@
 namespace SNMPpp
 {
     /** Wrapper for net-snmp's PDU structures.
-     * 
+     *
      * These objects are extremely small (just a pointer) and can easily
      * be created on the stack or as a member of another class.
      *
@@ -118,6 +118,12 @@ namespace SNMPpp
 
             /// Return the first OID object in the variable list.
             virtual SNMPpp::OID firstOID( void ) const;
+
+            /// Add an OID as ASN_BOOLEAN to the variable list.
+            virtual PDU &addBoolVar( const SNMPpp::OID &o, const bool &value );
+
+            /// Add an OID as ASN_INTEGER to the variable list.
+            virtual PDU &addIntegerVar( const SNMPpp::OID &o, const long &value );
 
             /// Add an OID as ASN_NULL to the variable list.
             virtual PDU &addNullVar( const SNMPpp::OID &o );

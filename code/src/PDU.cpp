@@ -209,6 +209,54 @@ SNMPpp::OID SNMPpp::PDU::firstOID( void ) const
 }
 
 
+SNMPpp::PDU &SNMPpp::PDU::addBoolVar( const SNMPpp::OID &o, const bool &value )
+{
+    if ( pdu == NULL )
+    {
+        /// @throw std::logic_error if the PDU is NULL.
+        throw std::logic_error( "Cannot reference a NULL PDU." );
+    }
+
+    if ( pdu->variables == NULL )
+    {
+        // if the PDU doesn't have a varlist, create a new one
+        SNMPpp::Varlist vl;
+        vl.addBoolVar( o, value );
+        setVarlist( vl );
+    }
+    else
+    {
+        // ...otherwise, add to the existing varlist
+        varlist().addBoolVar( o, value );
+    }
+
+    return *this;
+}
+
+SNMPpp::PDU &SNMPpp::PDU::addIntegerVar( const SNMPpp::OID &o, const long &value )
+{
+    if ( pdu == NULL )
+    {
+        /// @throw std::logic_error if the PDU is NULL.
+        throw std::logic_error( "Cannot reference a NULL PDU." );
+    }
+
+    if ( pdu->variables == NULL )
+    {
+        // if the PDU doesn't have a varlist, create a new one
+        SNMPpp::Varlist vl;
+        vl.addIntegerVar( o, value );
+        setVarlist( vl );
+    }
+    else
+    {
+        // ...otherwise, add to the existing varlist
+        varlist().addIntegerVar( o, value );
+    }
+
+    return *this;
+}
+
 SNMPpp::PDU &SNMPpp::PDU::addNullVar( const SNMPpp::OID &o )
 {
     if ( pdu == NULL )
