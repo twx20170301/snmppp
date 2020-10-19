@@ -42,6 +42,7 @@ namespace SNMPpp
      * @see SNMPpp::sync() to see additional exceptions this may throw.
      */
     SNMPpp::PDU set( SNMPpp::SessionHandle &session, const SNMPpp::OID &o, const bool &v );
+    SNMPpp::PDU set( SNMPpp::SessionHandle &session, const SNMPpp::OID &o, const int &v );
     SNMPpp::PDU set( SNMPpp::SessionHandle &session, const SNMPpp::OID &o, const long &v );
 
 };

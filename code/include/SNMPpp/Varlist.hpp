@@ -100,7 +100,9 @@ namespace SNMPpp
 
             virtual Varlist &addBoolVar( const SNMPpp::OID &o, const bool &value );
 
-            virtual Varlist &addIntegerVar( const SNMPpp::OID &o, const long &value );
+            virtual Varlist &addIntegerVar( const SNMPpp::OID &o, const int &value );
+
+            virtual Varlist &addInteger64Var( const SNMPpp::OID &o, const long &value );
 
             /** Equivalent to snmp_add_null_var() which adds a placeholder in
              * the PDU for this OID.  The "null" refers to how a type and value

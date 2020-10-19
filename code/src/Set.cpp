@@ -27,7 +27,7 @@ SNMPpp::PDU SNMPpp::set( SNMPpp::SessionHandle &session, const SNMPpp::OID &o, c
     return sync( session, request );
 }
 
-SNMPpp::PDU SNMPpp::set( SNMPpp::SessionHandle &session, const SNMPpp::OID &o, const long &v )
+SNMPpp::PDU SNMPpp::set( SNMPpp::SessionHandle &session, const SNMPpp::OID &o, const int &v )
 {
     if ( o.empty() )
     {
@@ -37,6 +37,20 @@ SNMPpp::PDU SNMPpp::set( SNMPpp::SessionHandle &session, const SNMPpp::OID &o, c
 
     SNMPpp::PDU request( SNMPpp::PDU::kSet );
     request.addIntegerVar( o, v );
+
+    return sync( session, request );
+}
+
+SNMPpp::PDU SNMPpp::set( SNMPpp::SessionHandle &session, const SNMPpp::OID &o, const long &v )
+{
+    if ( o.empty() )
+    {
+        /// @throw std::invalid_argument if the OID is empty.
+        throw std::invalid_argument( "OID cannot be empty." );
+    }
+
+    SNMPpp::PDU request( SNMPpp::PDU::kSet );
+    request.addInteger64Var( o, v );
 
     return sync( session, request );
 }

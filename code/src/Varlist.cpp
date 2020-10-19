@@ -114,7 +114,7 @@ SNMPpp::Varlist &SNMPpp::Varlist::addBoolVar( const SNMPpp::OID &o, const bool &
     return *this;
 }
 
-SNMPpp::Varlist &SNMPpp::Varlist::addIntegerVar( const SNMPpp::OID &o, const long &value )
+SNMPpp::Varlist &SNMPpp::Varlist::addIntegerVar( const SNMPpp::OID &o, const int &value )
 {
     if ( o.empty() )
     {
@@ -123,6 +123,24 @@ SNMPpp::Varlist &SNMPpp::Varlist::addIntegerVar( const SNMPpp::OID &o, const lon
     }
 
     netsnmp_variable_list *p = snmp_varlist_add_variable( &varlist, o, o, ASN_INTEGER, &value, sizeof(value) );
+    if ( p == NULL )
+    {
+        /// @throw std::runtime_error if net-snmp failed to add the OID.
+        throw std::runtime_error( "Failed to add " + o.to_str() + " to the variable list." );
+    }
+
+    return *this;
+}
+
+SNMPpp::Varlist &SNMPpp::Varlist::addInteger64Var( const SNMPpp::OID &o, const long &value )
+{
+    if ( o.empty() )
+    {
+        /// @throw std::invalid_argument if the OID is empty.
+        throw std::invalid_argument( "Cannot add an empty OID." );
+    }
+
+    netsnmp_variable_list *p = snmp_varlist_add_variable( &varlist, o, o, ASN_INTEGER64, &value, sizeof(value) );
     if ( p == NULL )
     {
         /// @throw std::runtime_error if net-snmp failed to add the OID.

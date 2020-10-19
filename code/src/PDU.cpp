@@ -233,7 +233,7 @@ SNMPpp::PDU &SNMPpp::PDU::addBoolVar( const SNMPpp::OID &o, const bool &value )
     return *this;
 }
 
-SNMPpp::PDU &SNMPpp::PDU::addIntegerVar( const SNMPpp::OID &o, const long &value )
+SNMPpp::PDU &SNMPpp::PDU::addIntegerVar( const SNMPpp::OID &o, const int &value )
 {
     if ( pdu == NULL )
     {
@@ -252,6 +252,30 @@ SNMPpp::PDU &SNMPpp::PDU::addIntegerVar( const SNMPpp::OID &o, const long &value
     {
         // ...otherwise, add to the existing varlist
         varlist().addIntegerVar( o, value );
+    }
+
+    return *this;
+}
+
+SNMPpp::PDU &SNMPpp::PDU::addInteger64Var( const SNMPpp::OID &o, const long &value )
+{
+    if ( pdu == NULL )
+    {
+        /// @throw std::logic_error if the PDU is NULL.
+        throw std::logic_error( "Cannot reference a NULL PDU." );
+    }
+
+    if ( pdu->variables == NULL )
+    {
+        // if the PDU doesn't have a varlist, create a new one
+        SNMPpp::Varlist vl;
+        vl.addInteger64Var( o, value );
+        setVarlist( vl );
+    }
+    else
+    {
+        // ...otherwise, add to the existing varlist
+        varlist().addInteger64Var( o, value );
     }
 
     return *this;

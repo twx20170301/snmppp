@@ -123,7 +123,10 @@ namespace SNMPpp
             virtual PDU &addBoolVar( const SNMPpp::OID &o, const bool &value );
 
             /// Add an OID as ASN_INTEGER to the variable list.
-            virtual PDU &addIntegerVar( const SNMPpp::OID &o, const long &value );
+            virtual PDU &addIntegerVar( const SNMPpp::OID &o, const int &value );
+
+            /// Add an OID as ASN_INTEGER64 to the variable list.
+            virtual PDU &addInteger64Var( const SNMPpp::OID &o, const long &value );
 
             /// Add an OID as ASN_NULL to the variable list.
             virtual PDU &addNullVar( const SNMPpp::OID &o );
