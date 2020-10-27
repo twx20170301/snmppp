@@ -281,6 +281,78 @@ SNMPpp::PDU &SNMPpp::PDU::addInteger64Var( const SNMPpp::OID &o, const long &val
     return *this;
 }
 
+SNMPpp::PDU &SNMPpp::PDU::addGaugeVar( const SNMPpp::OID &o, const unsigned int &value )
+{
+    if ( pdu == NULL )
+    {
+        /// @throw std::logic_error if the PDU is NULL.
+        throw std::logic_error( "Cannot reference a NULL PDU." );
+    }
+
+    if ( pdu->variables == NULL )
+    {
+        // if the PDU doesn't have a varlist, create a new one
+        SNMPpp::Varlist vl;
+        vl.addGaugeVar( o, value );
+        setVarlist( vl );
+    }
+    else
+    {
+        // ...otherwise, add to the existing varlist
+        varlist().addGaugeVar( o, value );
+    }
+
+    return *this;
+}
+
+SNMPpp::PDU &SNMPpp::PDU::addStringVar( const SNMPpp::OID &o, const std::string &value  )
+{
+    if ( pdu == NULL )
+    {
+        /// @throw std::logic_error if the PDU is NULL.
+        throw std::logic_error( "Cannot reference a NULL PDU." );
+    }
+
+    if ( pdu->variables == NULL )
+    {
+        // if the PDU doesn't have a varlist, create a new one
+        SNMPpp::Varlist vl;
+        vl.addStringVar( o, value );
+        setVarlist( vl );
+    }
+    else
+    {
+        // ...otherwise, add to the existing varlist
+        varlist().addStringVar( o, value );
+    }
+
+    return *this;
+}
+
+SNMPpp::PDU &SNMPpp::PDU::addBitStringVar( const SNMPpp::OID &o, const unsigned char value[], const unsigned int size )
+{
+    if ( pdu == NULL )
+    {
+        /// @throw std::logic_error if the PDU is NULL.
+        throw std::logic_error( "Cannot reference a NULL PDU." );
+    }
+
+    if ( pdu->variables == NULL )
+    {
+        // if the PDU doesn't have a varlist, create a new one
+        SNMPpp::Varlist vl;
+        vl.addBitStringVar( o, value, size );
+        setVarlist( vl );
+    }
+    else
+    {
+        // ...otherwise, add to the existing varlist
+        varlist().addBitStringVar( o, value, size );
+    }
+
+    return *this;
+}
+
 SNMPpp::PDU &SNMPpp::PDU::addNullVar( const SNMPpp::OID &o )
 {
     if ( pdu == NULL )

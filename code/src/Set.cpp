@@ -54,3 +54,45 @@ SNMPpp::PDU SNMPpp::set( SNMPpp::SessionHandle &session, const SNMPpp::OID &o, c
 
     return sync( session, request );
 }
+
+SNMPpp::PDU SNMPpp::set( SNMPpp::SessionHandle &session, const SNMPpp::OID &o, const unsigned int &v )
+{
+    if ( o.empty() )
+    {
+        /// @throw std::invalid_argument if the OID is empty.
+        throw std::invalid_argument( "OID cannot be empty." );
+    }
+
+    SNMPpp::PDU request( SNMPpp::PDU::kSet );
+    request.addGaugeVar( o, v );
+
+    return sync( session, request );
+}
+
+SNMPpp::PDU SNMPpp::set( SNMPpp::SessionHandle &session, const SNMPpp::OID &o, const std::string &v )
+{
+    if ( o.empty() )
+    {
+        /// @throw std::invalid_argument if the OID is empty.
+        throw std::invalid_argument( "OID cannot be empty." );
+    }
+
+    SNMPpp::PDU request( SNMPpp::PDU::kSet );
+    request.addStringVar( o, v );
+
+    return sync( session, request );
+}
+
+SNMPpp::PDU SNMPpp::set( SNMPpp::SessionHandle &session, const SNMPpp::OID &o, const unsigned char v[], const unsigned int size )
+{
+    if ( o.empty() )
+    {
+        /// @throw std::invalid_argument if the OID is empty.
+        throw std::invalid_argument( "OID cannot be empty." );
+    }
+
+    SNMPpp::PDU request( SNMPpp::PDU::kSet );
+    request.addBitStringVar( o, v, size );
+
+    return sync( session, request );
+}

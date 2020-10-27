@@ -104,6 +104,12 @@ namespace SNMPpp
 
             virtual Varlist &addInteger64Var( const SNMPpp::OID &o, const long &value );
 
+            virtual Varlist &addGaugeVar( const SNMPpp::OID &o, const unsigned int &value );
+
+            virtual Varlist &addStringVar( const SNMPpp::OID &o, const std::string &value );
+
+            virtual Varlist &addBitStringVar( const SNMPpp::OID &o, const unsigned char value[], const unsigned int size );
+
             /** Equivalent to snmp_add_null_var() which adds a placeholder in
              * the PDU for this OID.  The "null" refers to how a type and value
              * value aren't specified, just the OID.  This is typically used

@@ -128,6 +128,15 @@ namespace SNMPpp
             /// Add an OID as ASN_INTEGER64 to the variable list.
             virtual PDU &addInteger64Var( const SNMPpp::OID &o, const long &value );
 
+            /// Add an OID as ASN_GAUGE to the variable list.
+            virtual PDU &addGaugeVar( const SNMPpp::OID &o, const unsigned int &value );
+
+            /// Add an OID as ASN_OCTET_STR to the variable list.
+            virtual PDU &addStringVar( const SNMPpp::OID &o, const std::string &value );
+
+            /// Add an OID as ASN_BIT_STR to the variable list.
+            virtual PDU &addBitStringVar( const SNMPpp::OID &o, const unsigned char value[], const unsigned int size );
+
             /// Add an OID as ASN_NULL to the variable list.
             virtual PDU &addNullVar( const SNMPpp::OID &o );
 

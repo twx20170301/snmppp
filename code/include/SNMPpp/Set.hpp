@@ -9,6 +9,7 @@
 #include <SNMPpp/OID.hpp>
 #include <SNMPpp/PDU.hpp>
 
+#include <string>
 
 namespace SNMPpp
 {
@@ -41,8 +42,12 @@ namespace SNMPpp
      * - This will throw if an unexpected problem occurs.
      * @see SNMPpp::sync() to see additional exceptions this may throw.
      */
-    SNMPpp::PDU set( SNMPpp::SessionHandle &session, const SNMPpp::OID &o, const bool &v );
-    SNMPpp::PDU set( SNMPpp::SessionHandle &session, const SNMPpp::OID &o, const int &v );
-    SNMPpp::PDU set( SNMPpp::SessionHandle &session, const SNMPpp::OID &o, const long &v );
+    SNMPpp::PDU set( SNMPpp::SessionHandle &session, const SNMPpp::OID &o, const bool &v ); // BOOLEAN
+    SNMPpp::PDU set( SNMPpp::SessionHandle &session, const SNMPpp::OID &o, const int &v ); // INTEGER32
+    SNMPpp::PDU set( SNMPpp::SessionHandle &session, const SNMPpp::OID &o, const long &v ); // INTEGER64
+    SNMPpp::PDU set( SNMPpp::SessionHandle &session, const SNMPpp::OID &o, const unsigned int &v ); // GAUGE32
+    SNMPpp::PDU set( SNMPpp::SessionHandle &session, const SNMPpp::OID &o, const long unsigned int &v ); // GAUGE64
+    SNMPpp::PDU set( SNMPpp::SessionHandle &session, const SNMPpp::OID &o, const std::string &v ); // STRING
+    SNMPpp::PDU set( SNMPpp::SessionHandle &session, const SNMPpp::OID &o, const unsigned char v[], const unsigned int size ); // BITSTRING
 
 };

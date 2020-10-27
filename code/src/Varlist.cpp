@@ -150,6 +150,60 @@ SNMPpp::Varlist &SNMPpp::Varlist::addInteger64Var( const SNMPpp::OID &o, const l
     return *this;
 }
 
+SNMPpp::Varlist &SNMPpp::Varlist::addGaugeVar( const SNMPpp::OID &o, const unsigned int &value )
+{
+    if ( o.empty() )
+    {
+        /// @throw std::invalid_argument if the OID is empty.
+        throw std::invalid_argument( "Cannot add an empty OID." );
+    }
+
+    netsnmp_variable_list *p = snmp_varlist_add_variable( &varlist, o, o, ASN_GAUGE, &value, sizeof(value) );
+    if ( p == NULL )
+    {
+        /// @throw std::runtime_error if net-snmp failed to add the OID.
+        throw std::runtime_error( "Failed to add " + o.to_str() + " to the variable list." );
+    }
+
+    return *this;
+}
+
+SNMPpp::Varlist &SNMPpp::Varlist::addStringVar( const SNMPpp::OID &o, const std::string &value )
+{
+    if ( o.empty() )
+    {
+        /// @throw std::invalid_argument if the OID is empty.
+        throw std::invalid_argument( "Cannot add an empty OID." );
+    }
+
+    netsnmp_variable_list *p = snmp_varlist_add_variable( &varlist, o, o, ASN_OCTET_STR, value.c_str(), value.size() );
+    if ( p == NULL )
+    {
+        /// @throw std::runtime_error if net-snmp failed to add the OID.
+        throw std::runtime_error( "Failed to add " + o.to_str() + " to the variable list." );
+    }
+
+    return *this;
+}
+
+SNMPpp::Varlist &SNMPpp::Varlist::addBitStringVar( const SNMPpp::OID &o, const unsigned char value[], const unsigned int size )
+{
+    if ( o.empty() )
+    {
+        /// @throw std::invalid_argument if the OID is empty.
+        throw std::invalid_argument( "Cannot add an empty OID." );
+    }
+
+    netsnmp_variable_list *p = snmp_varlist_add_variable( &varlist, o, o, ASN_BIT_STR, &value, size );
+    if ( p == NULL )
+    {
+        /// @throw std::runtime_error if net-snmp failed to add the OID.
+        throw std::runtime_error( "Failed to add " + o.to_str() + " to the variable list." );
+    }
+
+    return *this;
+}
+
 SNMPpp::Varlist &SNMPpp::Varlist::addNullVar( const SNMPpp::OID &o )
 {
     if ( o.empty() )
